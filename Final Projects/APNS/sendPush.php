@@ -1,9 +1,9 @@
 <?php
 
-const AUTH_KEY_PATH = '/Users/scott/AuthKey_Q6B35U3B84.p8';
-const AUTH_KEY_ID = 'Q6B35U3B84';
-const TEAM_ID = 'BQUPLV7KWS';
-const BUNDLE_ID = 'com.gargoylesoft.APNS';
+const AUTH_KEY_PATH = '/Path/to/AuthKey_keyid.p8';
+const AUTH_KEY_ID = '';
+const TEAM_ID = '';
+const BUNDLE_ID = 'com.raywenderlich.APNS';
 const PDO_CONN_STR = 'pgsql:host=localhost;dbname=mySqlDatabase;user=mySqlUser;password=myStrongPassword';
 
 $payload = [
