@@ -38,10 +38,8 @@ final class ViewController: UIViewController {
     let data = try! Data(contentsOf: url)
     try! imageView.setData(data)
 
-    Notification.Name.NotificationAction.onPost { [weak self] note in
-      guard let `self` = self,
-        let selectedAction = note.userInfo?["action"] as? NotificationActionIdentifier
-        else { return }
+    Notification.Name.NotificationAction.onPost { note in
+      guard let selectedAction = note.userInfo?["action"] as? NotificationActionIdentifier else { return }
 
       print("Got a push and they chose action \(selectedAction.rawValue)")
     }
