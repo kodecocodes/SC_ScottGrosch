@@ -5,7 +5,6 @@ if (!isset($_SERVER['CONTENT_TYPE']) || strcasecmp($_SERVER['CONTENT_TYPE'], 'ap
     exit;
 }
 
-
 if (($stream = @fopen('php://input', 'r')) === false) {
     http_response_code(400);
     exit;
@@ -14,6 +13,11 @@ if (($stream = @fopen('php://input', 'r')) === false) {
 $contents = stream_get_contents($stream);
 $json = @json_decode($contents);
 @fclose($stream);
+
+if ($json === NULL) {
+    http_response_code(400);
+    exit;
+}
 
 foreach (['ident', 'ios', 'app', 'languages'] as $key) {
     if (!array_key_exists($key, $json)) {
