@@ -264,6 +264,18 @@ extension Notification.Name {
 }
 ``` 
 
+### Update the view controller
+
+In the view controller we can now catch the fact that a notification was sent and perform some type of action.
+
+```
+Notification.Name.NotificationAction.onPost { note in
+  guard let selectedAction = note.userInfo?["action"] as? NotificationActionIdentifier else { return }
+
+  print("Got a push and they chose action \(selectedAction.rawValue)")
+}
+```
+
 ### Update server
 
 Finally, we have to update the server's push script to identify that we want to use the categories we just registered.  Just edit the payload and add the category to the apns block.
