@@ -1,10 +1,10 @@
 <?php
 
-const AUTH_KEY_PATH = '/Path/to/AuthKey_keyid.p8';
+const AUTH_KEY_PATH = '/src/AuthKey_keyid.p8';
 const AUTH_KEY_ID = '';
 const TEAM_ID = '';
 const BUNDLE_ID = 'com.raywenderlich.APNS';
-const PDO_CONN_STR = 'pgsql:host=localhost;dbname=mySqlDatabase;user=mySqlUser;password=myStrongPassword';
+const PDO_CONN_STR = 'pgsql:host=localhost;dbname=apns;user=apns;password=apns';
 
 $payload = [
     'aps' => [
