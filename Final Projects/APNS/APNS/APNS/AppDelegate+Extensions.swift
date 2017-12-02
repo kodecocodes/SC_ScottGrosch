@@ -87,7 +87,8 @@ extension AppDelegate {
   /// - Parameters:
   ///   - url: The URL to send the details to.
   ///   - deviceToken: The device token provided from `application(_:didRegisterForRemoteNotificationsWithDeviceToken:)`
-  func sendPushNotificationDetails(to url: URL, using deviceToken: Data? = nil) {
+  ///   - httpBody: The details to include in the http body to send to the server.
+  func sendPushNotificationDetails(to url: URL, using deviceToken: Data? = nil, httpBody: [String : Any]? = nil) {
     let token: String
     if let deviceToken = deviceToken {
       token = deviceToken.reduce("") { $0 + String(format: "%02x", $1) }
@@ -98,13 +99,19 @@ extension AppDelegate {
     }
     
     UserDefaults.standard.apnsToken = token
-    
+
+    var body: [String : Any] = [:]
+
+    if let httpBody = httpBody {
+      body = httpBody
+    }
+
+    body["token"] = token
+
     var request = URLRequest(url: url)
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
     request.httpMethod = "POST"
-    request.httpBody = try! JSONSerialization.data(withJSONObject: [
-      "token" : token,
-      ])
+    request.httpBody = try! JSONSerialization.data(withJSONObject: body)
     
     URLSession.shared.dataTask(with: request).resume()
   }

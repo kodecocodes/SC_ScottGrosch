@@ -28,8 +28,6 @@
 
 import Foundation
 
-import Foundation
-
 extension Notification.Name {
   static let NotificationAction = Notification.Name("Action Notification")
   static let SilentPush = Notification.Name("Silent Push")
