@@ -87,8 +87,15 @@ extension AppDelegate {
   /// - Parameters:
   ///   - url: The URL to send the details to.
   ///   - deviceToken: The device token provided from `application(_:didRegisterForRemoteNotificationsWithDeviceToken:)`
-  func sendPushNotificationDetails(to url: URL, using deviceToken: Data) {
-    let token = deviceToken.reduce("") { $0 + String(format: "%02x", $1) }
+  func sendPushNotificationDetails(to url: URL, using deviceToken: Data? = nil) {
+    let token: String
+    if let deviceToken = deviceToken {
+      token = deviceToken.reduce("") { $0 + String(format: "%02x", $1) }
+    } else if let apnsToken = UserDefaults.standard.apnsToken {
+      token = apnsToken
+    } else {
+      fatalError("Must provide a deviceToken at startup!")
+    }
     
     UserDefaults.standard.apnsToken = token
     
