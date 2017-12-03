@@ -63,7 +63,7 @@ services:
     web:
         image: nginx:latest
         restart: always
-        container_name: web
+        container_name: web_apns
         ports:
             - "80:80"
         volumes:
@@ -74,7 +74,7 @@ services:
 
     php:
         image: andrdru/php-fpm
-        container_name: php
+        container_name: php_apns
         restart: always
         volumes:
             - ./src:/src
@@ -85,7 +85,7 @@ services:
     db:
         image: postgres:latest
         restart: always
-        container_name: db
+        container_name: db_apns
         ports:
             - "5432:5432"
         networks:
