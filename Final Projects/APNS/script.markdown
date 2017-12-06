@@ -140,26 +140,25 @@ At the top right of the page click on Account, and then Membership.  You'll want
 
 If you don't already have a server you're using then docker is a great solution to spin up a server for development.  If it's not already installed on your mac, just head over to docker.com, use the Get Docker link at the top of the page and then download the mac version.
 
-Now open up Terminal and go to the starter materials you downloaded and you'll see a createServer script that will spin up a docker instance for you.  The script will link port 80 of your mac to port 80 on the docker container for your webserver, and port 5432 for PostgreSQL.  
+Now open up Terminal and go to the starter materials you downloaded and you'll see a server directory. This contains the PHP code that runs the server, together with a docker-compose.yml which tells docker how to run the component parts of the server.
 
-Now run the provided script and specify a directory where your server instance should live.   Change directories to that path and you'll notice a src directory there.  This is the root of your website.
+To download all the dependencies and run the service run the following inside the `server` directory:
+
+```
+$ docker-compose up
+```
+
+This'll take a while—downloading containers, and then running them. This will run docker in the foreground so that you can see the logs passing by. To continue to interact with these running containers, you'll need to open a new terminal window.
 
 ## Setup SQL and Web
 
 Now that docker is running, run the createPsqlTables.sql file through psql to setup the user, database, and tables.  
 
 ```
-psql -U postgres -h localhost -f ./createPsqlTables.sql
+$ docker-compose exec db psql -U postgres -h localhost -f /opt/setup/createPsqlTables.sql
 ```
 
-Now copy the three PHP files into the src directory and then take a look at the apns.php file.
-
-```
-cp *.php src
-cat src/apns.php
-```
- 
-You'll see that when the iOS app sends over the device token, it's stored in the apns table in the database.  If you're going to send a push notification to somebody, you need to know their device token, and this is how we store them.
+Now take a look at the apns.php file inside the `server/src` directory.  You'll see that when the iOS app sends over the device token, it's stored in the apns table in the database.  If you're going to send a push notification to somebody, you need to know their device token, and this is how we store them.
 
 Copy the APNS key you downloaded from apple to the src directory as well and then edit the sendPush.php file.  Set the const variables at the top of the script to the appropriate values.  Remember to use a full path to the auth key, and for the key id use the value in the p8 file.
 
@@ -168,7 +167,7 @@ If you're interested in the nitty gritties of how auth keys work, you can look a
 Build and run in Xcode and then you can look in the database to see that your token is there.
 
 ```
-psql -U apns -h localhost apns
+docker-compose exec db psql -U apns -h localhost apns
 select * from apns;
 ```
 
