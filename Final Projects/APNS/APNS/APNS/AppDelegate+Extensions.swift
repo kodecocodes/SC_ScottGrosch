@@ -52,35 +52,6 @@ extension AppDelegate {
     }
   }
 
-  /// Update our webserver with device details.  This makes it easier for us to know how
-  /// many revisions back of the OS we want to support and what languages we might want
-  /// to consider localizing the app into.
-  ///
-  /// - Parameter name: The name of the app to write to the database.  If you localize the
-  ///                   name of your application you'll want to pass this in so it's
-  ///                   always the same thing in your server's database.
-  func saveLaunchInfo(appName name: String? = nil) {
-    guard let url = URL(string: "https://www.contoso.com/apps/info.php"),
-      let uuid = UIDevice.current.identifierForVendor?.uuidString else { return }
-
-    let version = UIDevice.current.systemVersion
-    let languages = Locale.preferredLanguages.joined(separator: ", ")
-
-    let appName = name ?? Bundle.main.infoDictionary![kCFBundleNameKey as String] as! String
-
-    var request = URLRequest(url: url)
-    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-    request.httpMethod = "POST"
-    request.httpBody = try! JSONSerialization.data(withJSONObject: [
-      "ident" : uuid,
-      "ios" : version,
-      "app" : appName,
-      "languages" : languages
-      ])
-
-    URLSession.shared.dataTask(with: request).resume()
-  }
-
   /// Updates the remote webservice with the APNS token.
   ///
   /// - Note: This will also store the token in `UserDefaults.standard.apnsToken`
