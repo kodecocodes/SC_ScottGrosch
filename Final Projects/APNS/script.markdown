@@ -1,12 +1,12 @@
 ## Introduction
 
-Hey everybody, I'm Scott, and I'd like to welcome you to my first ever raywenderlich.com screencast!  Huge thanks to Ray for giving me this opportunity and Tim Mitra for tech editing the project. 
+Hey everybody, I'm Scott, and I'd like to welcome you to my first ever raywenderlich.com screencast!  
 
 In today's screencast we'll be talking about push notifications.  There are tons of tutorials out there already but most of them don't handle the server side push at all and they leave out many of the possible ways to get notified in your app.
 
-To get going, please download the startup project and open it up in Xcode.  We're not going to build the next cool app here, but rather just focus on push notifications.
+In this screencast we'll be handling setup of not only your iOS application but also the server-side PHP scripts that you'll use to send notifications to your customers.  Please be aware that this screencast assumes you have a server running some type of Linux and that you are already familiar with SQL and PHP. 
 
-OK, here we go!
+Huge thanks to Tim Mitra for tech editing the project - be sure to give him a follow on Twitter. OK, here we go!
 
 ## App Setup
 
